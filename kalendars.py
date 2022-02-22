@@ -23,6 +23,7 @@ else: print('FATAL ERROR 404 ')
 print('')
 print('        ',menesis,Y)
 
+#kkads algoritms
 if m==1 or m==2:
     Y=Y-1
 y = Y % 100
