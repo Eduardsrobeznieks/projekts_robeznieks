@@ -32,6 +32,7 @@ d0 = int((b + floor(y/4) + floor(c/4) + 1 + y -2*c) % 7 - 1) #mçneða 1.diena
 if d0==-1: d0=6
 elif d0==0: d0=7
 
+#tiek izprintçts kalendârs
 print('Mo  Tu  We  Th  Fr  Sa  Su')
 for k in range(0,36,7):
     for i in range(1,8):
