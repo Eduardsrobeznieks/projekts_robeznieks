@@ -15,15 +15,14 @@ if izvele == 1:
 
     # nosaka gada dienu
     s = 0
-    dienu_sk = {1: [31, 36, 'Janvāris'], 2: [29, 39, 'Februāris'], 3: [31, 10, 'Marts'], 4: [30, 13, 'Aprīlis'], 5: [31, 15, 'Maijs'], 6: [30, 18, 'Jūnijs'], 7: [31, 20, 'Jūlijs'], 8: [31, 23, 'Augusts'], 9: [30, 26, 'Septembris'], 10: [31, 28, 'Oktobris'], 11: [30, 31, 'Novembris'], 12: [31, 33, 'Decembris']}
-    menesdati = dienu_sk[m]
-    dienas = menesdati[0]
-    b = menesdati[1]
-    menesis = menesdati[2]
+    dienu_sk = [[31, 36, 'Janvāris'], [29, 39, 'Februāris'], [31, 10, 'Marts'], [30, 13, 'Aprīlis'], [31, 15, 'Maijs'], [30, 18, 'Jūnijs'], [31, 20, 'Jūlijs'], [31, 23, 'Augusts'], [30, 26, 'Septembris'], [31, 28, 'Oktobris'], [30, 31, 'Novembris'], [31, 33, 'Decembris']]
+    dienas = dienu_sk[m-1][0]
+    b = dienu_sk[m-1][1]
+    menesis = dienu_sk[m-1][2]
 
     while M > 1:
         M = M - 1
-        s += dienu_sk[M][0]
+        s += dienu_sk[M-1][0]
     DOY = s + datums
 
     if gads % 4 != 0 or (gads % 100 == 0 and gads % 400 != 0):
@@ -59,26 +58,25 @@ if izvele == 1:
                     print('{:^4}'.format(Q), end='')
         print(' ')
 
-    nedienas = {0: 'sestdiena', 1: 'svētdiena', 2: 'pirmdiena', 3: 'otrdiena', 4: 'trešdiena', 5: 'ceturtdiena', 6: 'piektdiena'}
+    nedienas = ['sestdiena', 'svētdiena', 'pirmdiena', 'otrdiena', 'trešdiena', 'ceturtdiena', 'piektdiena']
     print(nedienas[int(w)])
     print('vārda dienas svin - ', vardadienas[DOY-1])
 
 elif izvele == 2:
     vards = input('ievadiet vārdu, kuru vēlaties meklēt - ')
 
-    while True:
-        for _ in vardadienas:
-            if vards in _:
-                DOY = vardadienas.index(_) + 1
-                break
+    def atrast_vardu(x):
+        for _ in range(len(vardadienas)):
+            if x in (vardadienas[_]):
+                o = _ + 1
+                return o
         print('\033[91m' + '404 vārds netika atrasts!')
         quit()
 
-    # noinspection PyUnreachableCode
-    dienu_sk = {1: 31, 2: 29, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+    DOY = atrast_vardu(vards)
+    dienu_sk = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     i = 0
     while DOY >= 0:
-        i += 1
         DOY -= dienu_sk[i]
-    print(vards, ' vārda dienu svin - ', str(DOY + dienu_sk[i]).zfill(2), '.', str(i).zfill(2), '.', sep='')
-    
+        i += 1
+    print(vards, ' vārda dienu svin - ', str(DOY + dienu_sk[i-1]).zfill(2), '.', str(i).zfill(2), '.', sep='')
